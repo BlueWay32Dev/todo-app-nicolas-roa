@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: 'https://us-central1-TU_ID.cloudfunctions.net/api'
 };

@@ -1,0 +1,28 @@
+<mat-card class="task-form-card">
+  <h2>Crear Nueva Tarea</h2>
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="task-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput placeholder="Ej: Crear componente del login" formControlName="title" />
+      <mat-error *ngIf="this.form.controls['title'].hasError('required')"></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descrición</mat-label>
+      <textarea matInput placeholder="Detalles de la tarea" formControlName="description"></textarea>
+      <mat-error *ngIf="this.form.controls['description'].hasError('required')"></mat-error>
+    </mat-form-field>
+    <mat-checkbox formControlName="completed">
+      ¿La tarea esta completada?
+    </mat-checkbox>
+    <div class="buttons">
+      <button mat-raised-button color="primary" class="btn-create-task" type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? '' : 'Crear Tarea' }}
+      </button>
+      <button mat-stroked-button class="btn-return-login" type="button" (click)="goToLogin()">
+        Volver al iniciar sesión
+      </button>
+    </div>
+  </form>
+</mat-card>

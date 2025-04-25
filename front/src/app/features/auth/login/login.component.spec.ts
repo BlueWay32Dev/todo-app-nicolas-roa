@@ -7,13 +7,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 import { LoginComponent } from './login.component';
+import { AuthService } from '@core/services/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let mockAuthService: jasmine.SpyObj<AuthService>;
+  let mockDialog: jasmine.SpyObj<MatDialog>;
+  let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
+    mockAuthService = jasmine.createSpyObj('AuthService', ['login', 'register', 'isLoggedIn']);
+    mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -24,8 +36,14 @@ describe('LoginComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatProgressSpinnerModule,
+        HttpClientTestingModule,
         LoginComponent,
       ],
+      providers: [
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: MatDialog, useValue: mockDialog },
+        { provide: Router, useValue: mockRouter }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
