@@ -7,12 +7,5 @@
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@domain/*": ["domain/*"],
-      "@app/*": ["application/*"],
-      "@infra/*": ["infrastructure/*"],
-      "@shared/*": ["shared/*"]
-    }
   }
 }
