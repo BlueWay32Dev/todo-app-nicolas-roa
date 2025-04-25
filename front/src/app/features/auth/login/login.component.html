@@ -1,0 +1,30 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="form" class="login-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo:</mat-label>
+        <input
+          class="input-email"
+          matInput
+          type="email"
+          placeholder="email@atom.com"
+          formControlName="email"
+          [attr.aria-invalid]="form.get('email')?.invalid"
+        />
+        <mat-error *ngIf="form.controls.email.hasError('required')">Correo es obligatorio.</mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">El formato del correo no es válido.</mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="btn-login"
+        type="submit"
+        [disabled]="form.invalid || loading"
+        [attr.aria-busy]="loading"
+        >
+        <mat-spinner *ngIf="loading" diameter="20" class="button-spinner" aria-hidden="true"></mat-spinner>
+        <span>{{ loading ? '' : 'Ingresar' }}</span>
+      </button>
+    </form>
+  </mat-card>
+</div>
