@@ -9,11 +9,10 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "rootDir": "src"
+    "rootDir": "src",
   },
   "compileOnSave": true,
   "include": [
     "src"
-  ],
-  "extends": "../tsconfig.json"
+  ]
 }
