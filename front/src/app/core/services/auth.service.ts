@@ -40,28 +40,13 @@ export class AuthService{
     localStorage.setItem(this.refreshTokenKey, refreshToken);
   }
 
-  getAccessToken():string | null {
-    return localStorage.getItem(this.accessTokenKey);
-  }
-
-  getRefreshToken(): string | null {
-    return localStorage.getItem(this.refreshTokenKey)
-  }
-
   clearTokens(): void {
     localStorage.removeItem(this.accessTokenKey)
     localStorage.removeItem(this.refreshTokenKey)
   }
 
   isLoggedIn(): boolean {
-    return !!this.getAccessToken()
-  }
-
-  getAuthHeaders(): HttpHeaders {
-    const token = this.getAccessToken();
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
+    return !!localStorage.getItem('access-token');
   }
 
   logout(): void {
