@@ -7,9 +7,9 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatButtonModule } from "@angular/material/button";
 import {MatCard} from "@angular/material/card";
 import {Router} from "@angular/router";
-import {AuthService} from "@core/services/auth.service";
+import {AuthService} from "@core/services/auth/auth.service";
 import {CreateTaskDto} from "@core/models/create-task.dto";
-import {TaskService} from "@core/services/task.service";
+import {TaskService} from "@core/services/task/task.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -37,28 +37,15 @@ export class TaskFormComponent {
     completed: FormControl<CreateTaskDto['completed']>
   }>;
 
-  loading = false;
-
   async onSubmit(): Promise<void> {
     if(this.form.invalid) return;
-    this.loading = true;
     try{
-      const response = await this.taskService.createTask(this.form.value);
-
-      console.log(response, 13)
-
-      this.snackBar.open('Tarea creada correctamente.','Cerrar',{
-        duration: 3000
-      });
+      await this.taskService.createTask(this.form.value);
+      this.snackBar.open('Tarea creada correctamente.','Cerrar',{duration: 3000});
       this.form.reset({ completed: false });
-
     }catch (error){
       console.error('Error al enviar la tarea: ', error);
-      this.snackBar.open('Error al crear la tarea. Intente nuevamente..','Cerrar',{
-        duration: 3000
-      });
-    } finally {
-      this.loading = false;
+      this.snackBar.open('Error al crear la tarea. Intente nuevamente..','Cerrar',{duration: 3000});
     }
   }
 

@@ -17,8 +17,8 @@
       ¿La tarea esta completada?
     </mat-checkbox>
     <div class="buttons">
-      <button mat-raised-button color="primary" class="btn-create-task" type="submit" [disabled]="form.invalid || loading">
-        {{ loading ? '' : 'Crear Tarea' }}
+      <button mat-raised-button color="primary" class="btn-create-task" type="submit" [disabled]="form.invalid">
+        Crear Tarea
       </button>
       <button mat-stroked-button class="btn-return-login" type="button" (click)="goToLogin()">
         Volver al iniciar sesión
