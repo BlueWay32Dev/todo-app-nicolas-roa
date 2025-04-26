@@ -24,3 +24,20 @@ export const createTaskHandler = async (request: Request, response: Response) =>
         return response.status(500).json({ message: 'Error interno al crear la tarea.' });
     }
 }
+
+export const getTasksHandler = async (request: Request, response: Response) => {
+    try {
+        const userId = getUserIdFromRequest(request);
+        const tasks = await taskService.getTasksByUserId(userId);
+        return response.status(200).json(tasks);
+
+    } catch (error: any) {
+        console.error('Error al obtener tareas:', error.message || error);
+
+        if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
+            return response.status(401).json({ message: 'Token inválido o expirado.' });
+        }
+
+        return response.status(500).json({ message: 'Error interno al obtener las tareas.' });
+    }
+};

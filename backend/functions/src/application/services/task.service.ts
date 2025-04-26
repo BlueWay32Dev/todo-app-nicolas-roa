@@ -8,4 +8,8 @@ export class TaskService {
     async createTask(data: CreateTaskDto):Promise<Task>{
         return this.taskRepository.create(data);
     }
+
+    async getTasksByUserId(userId: string): Promise<Task[]> {
+        return this.taskRepository.findByUserId(userId);
+    }
 }

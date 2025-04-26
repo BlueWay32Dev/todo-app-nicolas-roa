@@ -3,4 +3,5 @@ import {CreateTaskDto} from "../dtos/create-task.dto";
 
 export interface TaskRepository {
     create(task: CreateTaskDto): Promise<Task>;
+    findByUserId(userId: string): Promise<Task[]>;
 }

@@ -30,4 +30,20 @@ export class FirestoreTaskRepository implements TaskRepository {
         );
 
     }
+
+    async findByUserId(userId: string): Promise<Task[]> {
+        const snapshot = await this.collection.where('userId', '==', userId).get();
+
+        return snapshot.docs.map(doc => {
+            const data = doc.data();
+            return new Task(
+                doc.id,
+                data.userId,
+                data.title,
+                data.description,
+                data.completed,
+                data.createdAt.toDate()
+            );
+        });
+    }
 }
