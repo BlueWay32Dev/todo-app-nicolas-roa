@@ -8,11 +8,11 @@ import {
   Validators
 } from "@angular/forms";
 import {Router} from "@angular/router";
-import {AuthService} from '@core/services/auth.service'
+import {AuthService} from '@core/services/auth/auth.service'
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import {ConfirmDialogComponent} from "@shared/components/confirm-dialog.component";
+import {ConfirmDialogComponent} from "@shared/components/dialog/confirm/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {firstValueFrom} from "rxjs";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -39,12 +39,9 @@ export class LoginComponent {
     email: FormControl<string>;
   }>;
 
-  loading = false;
-
   async onSubmit(){
     if(this.form.invalid) return;
     const email = this.form.value.email!;
-    this.loading = true;
 
     try {
       const loggedIn = await this.authService.login(email);
@@ -72,9 +69,6 @@ export class LoginComponent {
       }
     }catch (e) {
       this.snackBar.open('Ocurrió un error, inténtalo nuevamente', 'Cerrar', { duration: 3000});
-    } finally {
-      this.loading = false;
     }
-
   }
 }

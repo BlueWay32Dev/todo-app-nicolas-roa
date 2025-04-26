@@ -19,11 +19,9 @@
         mat-raised-button
         class="btn-login"
         type="submit"
-        [disabled]="form.invalid || loading"
-        [attr.aria-busy]="loading"
+        [disabled]="form.invalid"
       >
-        <mat-spinner *ngIf="loading" diameter="20" class="button-spinner" aria-hidden="true"></mat-spinner>
-        <span>{{ loading ? '' : 'Ingresar' }}</span>
+        Ingresar
       </button>
     </form>
   </mat-card>

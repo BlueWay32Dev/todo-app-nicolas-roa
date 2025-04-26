@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@environments/environment";
 import {CreateTaskDto} from "@core/models/create-task.dto";
-import {AuthService} from "@core/services/auth.service";
+import {AuthService} from "@core/services/auth/auth.service";
 import {firstValueFrom} from "rxjs";
 
 @Injectable({
