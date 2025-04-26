@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { CommonModule} from "@angular/common";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {ConfirmDialogDTO} from "@core/models/shared/confirm-dialog-data.dto";
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -12,7 +13,7 @@ import {MatButtonModule} from "@angular/material/button";
 })
 export class ConfirmDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {title:string; message:string},
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogDTO,
     public dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {}
 
