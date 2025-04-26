@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
 import {environment} from "@environments/environment.development";
+import {LoginResponseDto} from "@core/models/login-response.dto";
+import {LoginRequestDto} from "@core/models/login-request.dto";
 
 @Injectable({
   providedIn:'root'
@@ -15,8 +17,11 @@ export class AuthService{
   constructor(private http: HttpClient) {}
 
   async authenticate(email:string, endpoint:'login' | 'register'): Promise<boolean>{
+
+    const body: LoginRequestDto = { email };
+
     const response = await firstValueFrom(
-      this.http.post<{ credentials:boolean; accessToken: string; refreshToken: string }>(`${this.apiUrl}/auth/${endpoint}`, {email})
+      this.http.post<LoginResponseDto>(`${this.apiUrl}/auth/${endpoint}`, body)
     );
 
     if(!response.credentials){
@@ -43,6 +48,23 @@ export class AuthService{
   clearTokens(): void {
     localStorage.removeItem(this.accessTokenKey)
     localStorage.removeItem(this.refreshTokenKey)
+  }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem('access-token');
+  }
+
+  getAuthHeaders(): HttpHeaders {
+    const token = this.getAccessToken();
+
+    if(!token){
+      throw new Error("No hay token disponible.")
+    }
+
+    return new HttpHeaders({
+      Authorization: `Bearer ${token},`
+    });
+
   }
 
   isLoggedIn(): boolean {
